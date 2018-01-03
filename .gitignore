@@ -1,4 +1,5 @@
-data
 .vscode
 !tiny-dnn
-!data/cuocduaso/*
+data/*
+!data/cuocduaso
+!data/Real
