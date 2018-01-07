@@ -2629,6 +2629,10 @@ iostream
 -
 string
 -
+stdlib.h
+-
+time.h
+-
 opencv2/core.hpp
 -
 opencv2/imgcodecs.hpp
@@ -2661,6 +2665,10 @@ image_processing.h
 /home/duyisking/Documents/cpp/source/image_processing.h
 
 /home/duyisking/Documents/cpp/source/image_processing.h
+stdlib.h
+-
+time.h
+-
 opencv2/imgcodecs.hpp
 -
 opencv2/imgproc.hpp
