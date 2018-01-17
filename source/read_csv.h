@@ -28,8 +28,12 @@ void read_csv(string file_name, vector<label_t> &y, vector<vec_t> &roi) {
                 roi.push_back(_roi);
                 roi.push_back(_roi);
                 roi.push_back(_roi);
+                roi.push_back(_roi);
+                roi.push_back(_roi);
             }
             if (i == 8) {
+                y.push_back(stod(cell) - 1);
+                y.push_back(stod(cell) - 1);
                 y.push_back(stod(cell) - 1);
                 y.push_back(stod(cell) - 1);
                 y.push_back(stod(cell) - 1);

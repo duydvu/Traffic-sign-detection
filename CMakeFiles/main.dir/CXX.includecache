@@ -2669,9 +2669,13 @@ stdlib.h
 -
 time.h
 -
+math.h
+-
 opencv2/imgcodecs.hpp
 -
 opencv2/imgproc.hpp
+-
+opencv2/shape/shape_distance.hpp
 -
 tiny_dnn/tiny_dnn.h
 /home/duyisking/Documents/cpp/source/tiny_dnn/tiny_dnn.h

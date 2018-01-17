@@ -398,6 +398,10 @@ COMPILER_HAS_AVX_FLAG:INTERNAL=1
 COMPILER_HAS_SSE_FLAG:INTERNAL=1
 //main cotire message.
 COTIREMSG_main:INTERNAL=CXX target main cotired without precompiled header. Too few applicable sources.
+//one cotire message.
+COTIREMSG_one:INTERNAL=CXX target one cotired without precompiled header. Too few applicable sources.
+//train cotire message.
+COTIREMSG_train:INTERNAL=CXX target train cotired without precompiled header. Too few applicable sources.
 //Details about finding OpenCV
 FIND_PACKAGE_MESSAGE_DETAILS_OpenCV:INTERNAL=[/usr/local][v3.3.1()]
 //Details about finding Threads

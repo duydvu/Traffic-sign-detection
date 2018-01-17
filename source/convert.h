@@ -11,46 +11,95 @@ using namespace boost::filesystem;
 using namespace std;
 using namespace cv;
 
-
+static int i = 0;
 // convert image to vec_t
-void convert_image(const string &imagefilename, int i,
-                   vector<vec_t> &data, vec_t &roi)
+void convert_image(const string &imagefilename/*, int i*/,
+                   vector<vec_t> &data/*, vec_t &roi*/)
 {
   // Load network
   // network<sequential> net;
-  // net << fc(25 * 25 * 4, 120) << sigmoid()
-  //     << fc(120, 120) << sigmoid()
-  //     << fc(120, 8) << softmax();
+  // net << conv(50, 50, 5, 3, 12, padding::same) << sigmoid()
+  //     << max_pool(50, 50, 12, 2)
+  //     << conv(25, 25, 5, 12, 36, padding::same) << sigmoid()
+  //     << max_pool(25, 25, 36, 2)
+  //     << dropout_layer(12 * 12 * 36, 0.3)
+  //     << fc(12 * 12 * 36, 150) << sigmoid()
+  //     << fc(150, 8) << softmax();
   // ifstream input("nets.txt");
   // input >> net;
 
-  vec_t result;
+
   // VideoCapture video(imagefilename);
-
-  Mat img;
-
-  // for (;;) {
-  //   video >> img;
-  //   if (img.empty())
-  //   {
-  //     cout << " < < <  Game over!  > > > ";
-  //     break;
-  //   }
-    img = imread(imagefilename, IMREAD_COLOR);
-    if(img.empty()) {
-      cout << "Could not open or find the image" << endl;
-      return;
-    }
-    image_processing(img, result, roi, i);
-    
+  // int ex = static_cast<int>(video.get(CV_CAP_PROP_FOURCC));
+  // VideoWriter outputVideo;
+  // outputVideo.open("output.avi", ex, video.get(CV_CAP_PROP_FPS), Size(640, 480), true);
+  // if (!outputVideo.isOpened()) {
+  //   cout << "Could not open the output video for write" << endl;
+  //   return;
   // }
 
+  // Rect result;
+  // Mat img[5];
+  // Mat frame;
+  // int i = 0, j = -1;
+  // bool f1 = false, f2 = false;
+  // for(int i = 0; i < 5; i++) {
+  //   video >> frame;
+  //   frame.copyTo(img[i]);
+  // }
+
+  // for (;;) {
+  //   if(i > 2) {
+  //     f1 = true;
+  //   }
+  //   else j++;
+  //   if(f1 && !f2) {
+  //     video >> frame;
+  //     if(frame.empty())
+  //       f2 = true;
+  //     else {
+  //       for(int j = 0; j < 4; j++)
+  //         img[j + 1].copyTo(img[j]);
+  //       frame.copyTo(img[4]);
+  //     }
+  //   }
+  //   if(f2) {
+  //     j++;
+  //   }
+  //   if(j > 4) break;
+  //   outputVideo << image_processings(img, i, j, net);
+  //   i++;
+  // }
+
+  vec_t result;
+  int i = 0;
+  Mat img;
+
+  // VideoCapture video(imagefilename);
+  // for (;;) {
+  //   for(int j = 0; j < 10; j++) {
+  //     video >> img;
+  //     if (img.empty()) {
+  //       cout << "End." << endl;
+  //       return;
+  //     }
+  //   }
+  //     image_processing(img, result, i /*, net*/);
+  //     i++;
+  // }
+
+  img = imread(imagefilename, IMREAD_COLOR);
+  if(img.empty()) {
+    cout << "Could not open or find the image" << endl;
+    return;
+  }
+  image_processing(img, result, i);
   data.push_back(result);
 }
 
 // convert all images found in directory to vec_t
 void convert_images(const string &directory,
-                    vector<vec_t> &data, vector<vec_t> &roi)
+                    vector<vec_t> &data, vector<label_t> &y, label_t label, int n)
 {
   cout << "Open folder " + directory << endl;
   path dpath(directory);
@@ -65,9 +114,10 @@ void convert_images(const string &directory,
   }
   sort(imgs.begin(), imgs.end());
   for (int i = 0; i < imgs.size(); i++) {
-    convert_image(imgs[i], i, data, roi[i * 3]);
-    convert_image(imgs[i], i, data, roi[i * 3 + 1]);
-    convert_image(imgs[i], i, data, roi[i * 3 + 2]);
+    for(int j = 0; j < n; j++) {
+      y.push_back(label);
+      convert_image(imgs[i], data);
+    }
   }
 
   cout << "Successfully opened " + to_string(data.size()) + " files!\n";
